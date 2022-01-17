@@ -1,0 +1,45 @@
+{% extends 'task/base.html' %}
+
+{% block content %}
+    <main>
+       <section class="container">
+            <div class="date">
+                <div class="complete-date">
+                    <span class="day">{{date|date:"j"}}</span>
+                    <div class="month_year">
+                        <span class="month">{{date|date:"M"}}</span>
+                        <span class="year">{{date|date:"Y"}}</span>
+                    </div>
+                </div>
+                <div><span class="today">{{date|date:"D"}}</span></div>
+            </div>
+            <div class="task-list">
+
+                {% if tasks %}
+                
+                {% for task in tasks %}
+                    <div class="task">
+                        {{ task.title}} 
+                        <div class="action">
+                            <a href="{% url 'delete-task' task.id %}" class="btn-delete">DELETE</a>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                {% else %}
+
+                    <p class="message">No Task</p>
+                
+                {% endif %}
+            </div>
+            <div class="add">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{form}}
+                    <button type="submit">Add</button>
+                </form>
+            </div>
+        </section> 
+    </main>
+    
+{% endblock %}
